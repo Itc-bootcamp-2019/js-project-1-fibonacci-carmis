@@ -1,10 +1,8 @@
-// TODO construct a function to handle edge-cases it breaks now -n, abc, etc.
-
 function calculateFibonacci(num) {
   let a = 1,
     result = 0,
     temp;
-  // assumning that the sequence begins with 0, else while num <= 0
+  // assumning that the sequence begins with 0, else while num >= 0
   while (num > 0) {
     temp = a;
     a = a + result;
