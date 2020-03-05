@@ -1,3 +1,6 @@
+// TODO fix logical errors in calculator 0, 1 are not correct
+// TODO construct a function to handle edge-cases it breaks now -n, 0, 1, abc, etc. 
+
 let calculator = {
     calculateFibonacci: function(num) {
         let first = 0,
