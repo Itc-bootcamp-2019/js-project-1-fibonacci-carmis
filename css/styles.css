@@ -1,0 +1,19 @@
+body {
+    margin: 0px 0px 0px 0px;
+}
+
+.row {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.h1-cust {
+    font-size: 72px;
+    color: #373A3C;
+    margin-bottom: 50px;
+}
+
+.font-cust1 {
+    font-size: 24px;
+    line-height: 24px;
+    color: #373A3C;
+}

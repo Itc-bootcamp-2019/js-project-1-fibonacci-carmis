@@ -1,3 +1,9 @@
+function simpleCalculate(inputVal) {
+  inputVal = getInputValue("input-number");
+  outputVal = calculateFibonacci(inputVal);
+  document.getElementById("calculated-result").innerText = outputVal;
+}
+
 function calculateFibonacci(num) {
   let a = 1,
     result = 0,
@@ -12,5 +18,12 @@ function calculateFibonacci(num) {
 
   return result;
 }
-document.getElementById("x").innerText = "6";
-document.getElementById("y").innerText = calculateFibonacci(6);
+
+function getInputValue(inputId) {
+  // Selecting the input element ID and getting its value
+  let inputVal = document.getElementById(inputId).value;
+  return inputVal;
+}
+
+let startCalculatorOnClick = document.getElementById("start-calculator");
+startCalculatorOnClick.addEventListener("click", simpleCalculate);
