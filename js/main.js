@@ -5,18 +5,23 @@ function simpleCalculate(inputVal) {
 }
 
 function calculateFibonacci(num) {
+  let error = "Only positive integers are allowed in range.";
   let a = 1,
     result = 0,
     temp;
   // assumning that the sequence begins with 0, else while num >= 0
-  while (num > 0) {
-    temp = a;
-    a = a + result;
-    result = temp;
-    num--;
+  if (num === "0" || num > 0) {
+    // is valid
+    while (num > 0) {
+      temp = a;
+      a = a + result;
+      result = temp;
+      num--;
+    }
+    return result;
+  } else {
+    return error;
   }
-
-  return result;
 }
 
 function getInputValue(inputId) {
