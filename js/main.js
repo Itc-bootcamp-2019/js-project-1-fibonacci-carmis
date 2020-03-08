@@ -1,34 +1,27 @@
-function simpleCalculate(inputVal) {
-  inputVal = getInputValue("input-number");
-  outputVal = calculateFibonacci(inputVal);
-  document.getElementById("calculated-result").innerText = outputVal;
-}
-
-function calculateFibonacci(num) {
-  let error = "Only positive integers are allowed in range.";
-  let a = 1,
-    result = 0,
-    temp;
-  // assumning that the sequence begins with 0, else while num >= 0
-  if (num === "0" || num > 0) {
-    // is valid
-    while (num > 0) {
-      temp = a;
-      a = a + result;
-      result = temp;
-      num--;
-    }
-    return result;
-  } else {
-    return error;
-  }
-}
-
-function getInputValue(inputId) {
-  // Selecting the input element ID and getting its value
-  let inputVal = document.getElementById(inputId).value;
-  return inputVal;
+function getFiboServer() {
+  let url = "http://localhost:5050/fibonacci/";
+  let params =  document.getElementById("input-number").value;
+  
+  fetch(`${url}+${params}`)
+    .then(function(response) {
+      // server response ERROR
+      if (response.status !== 200) {
+        console.log(
+          "Looks like there was a problem. Status Code: " + response.status
+        );
+        return;
+      }
+      // response OK
+      response.json().then(function(data) {
+        document.getElementById("calculated-result").innerText = data.result;
+      });
+    })
+    .catch(function(err) {
+      console.log("Fetch Error :-S", err);
+    });
 }
 
 let startCalculatorOnClick = document.getElementById("start-calculator");
-startCalculatorOnClick.addEventListener("click", simpleCalculate);
+startCalculatorOnClick.addEventListener("click", getFiboServer);
+
+
