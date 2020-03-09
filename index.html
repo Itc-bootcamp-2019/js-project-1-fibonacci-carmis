@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fibonacci Calculator version 4.1</title>
+    <title>Fibonacci Calculator version 6.2</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -42,8 +42,18 @@
                 Is
               </button>
             </span>
-            <span id="calculated-result" class="mr-sm-2 ml-2 my-font-result"></span>
+            <span class="mr-sm-2 ml-2"
+              ><span id="value" class="my-font-result">?</span>
+              <span id="calculated-result"></span>
+            </span>
           </form>
+        </div>
+      </div>
+      <div id="invalid-input-error-warning-row" class="row">
+        <div class="col">
+          <div class="invalid-input-value">
+            Can’t be larger than 50
+          </div>
         </div>
       </div>
     </div>

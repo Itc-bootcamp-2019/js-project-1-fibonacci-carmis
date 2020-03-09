@@ -34,6 +34,19 @@ body {
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-  line-height: 24px; 
-  color: #D9534F;
+  line-height: 24px;
+  color: #d9534f;
+}
+
+.invalid-input-value {
+  width: 180px;
+  height: 33px;
+  margin-left: 278px;
+  margin-top: 275px;
+  background: #f2dede;
+  border: 1px solid #ebcccc;
+  border-radius: 4px;
+}
+#invalid-input-error-warning-row {
+  display: none;
 }

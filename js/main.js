@@ -2,38 +2,50 @@ let startCalculatorOnClick = document.getElementById("start-calculator");
 startCalculatorOnClick.addEventListener("click", getFiboServer);
 
 function getFiboServer() {
-  // toggling spinner
-  document.getElementById("calculated-result").innerText = "";
-  document.getElementById("calculated-result").classList.remove("result-42");
-  document.getElementById("calculated-result").classList.add("spinner-border");
+  let inputNum = document.getElementById("input-number");
+  let resultNum = document.getElementById("calculated-result");
+  let resultValue = document.getElementById("value");
 
   let url = "http://localhost:5050/fibonacci/";
-  let params = document.getElementById("input-number").value;
+  let params = inputNum.value;
 
-  fetch(`${url}${params}`).then(function(response) {
-    if (!response.ok) {
-      response.text().then(function(text) {
-        console.log(text);
-        document.getElementById("calculated-result").innerText = "";
-        document
-          .getElementById("calculated-result")
-          .classList.replace("spinner-border", "result-42");
-        document.getElementById("calculated-result").innerText = `Server Error: ${text}`;
-        return;
-      });
+  if (params > 50) {
+    // do error
+  } else {
+    toggleSpinner("calculated-result");
 
-      // return;}
-    } else {
-      response.json().then(function(data) {
-        console.log(data);
-        document
-          .getElementById("calculated-result")
-          .classList.remove("spinner-border");
-        document.getElementById("calculated-result").innerText = data.result;
-      });
-    }
-  });
-  // .catch(function(err) {
-  //   console.log("Fetch Error :-S", err);
-  // });
+    fetch(`${url}${params}`).then(function(response) {
+      if (!response.ok) {
+        response.text().then(function(text) {
+          toggleStyle("value", "my-font-result", "result-42");
+          resultValue.innerText = `Server Error: ${text}`;
+          toggleSpinner("calculated-result");
+          return;
+        });
+      } else {
+        toggleStyle("value", "result-42", "my-font-result");
+        response.json().then(function(data) {
+          resultValue.innerText = data.result;
+          toggleSpinner("calculated-result");
+          return;
+        });
+      }
+    });
+  }
+}
+
+function toggleVisibilityByElementId(id) {
+  let element = document.getElementById(id);
+  if (element.style.display == "block") element.style.display = "none";
+  else element.style.display = "block";
+}
+
+function toggleSpinner(id) {
+  let element = document.getElementById(id);
+  element.classList.toggle("spinner-border");
+}
+
+function toggleStyle(id, classId1, classId2) {
+  let element = document.getElementById(id);
+  element.classList.replace(classId1, classId2);
 }
