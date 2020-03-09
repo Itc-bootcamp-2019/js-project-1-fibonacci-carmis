@@ -3,7 +3,6 @@ startCalculatorOnClick.addEventListener("click", getFiboServer);
 
 function getFiboServer() {
   let inputNum = document.getElementById("input-number");
-  let resultNum = document.getElementById("calculated-result");
   let resultValue = document.getElementById("value");
 
   let url = "http://localhost:5050/fibonacci/";
@@ -11,7 +10,10 @@ function getFiboServer() {
 
   if (params > 50) {
     // do error
+    toggleStyle("invalid-input-display", "block", "show")
+
   } else {
+    toggleStyle("invalid-input-display", "show", "block")
     toggleSpinner("calculated-result");
 
     fetch(`${url}${params}`).then(function(response) {
