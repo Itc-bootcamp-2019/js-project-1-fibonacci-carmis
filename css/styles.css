@@ -47,11 +47,11 @@ body {
   background: #f2dede;
   border: 1px solid #ebcccc;
   border-radius: 4px;
-  color: #A94442;
+  color: #a94442;
 }
 
 .show {
-  display: inline-block
+  display: inline-block;
 }
 
 .block {

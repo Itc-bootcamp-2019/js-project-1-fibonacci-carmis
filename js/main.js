@@ -2,6 +2,7 @@ let startCalculatorOnClick = document.getElementById("start-calculator");
 startCalculatorOnClick.addEventListener("click", getFiboServer);
 
 function getFiboServer() {
+  
   let inputNum = document.getElementById("input-number");
   let resultValue = document.getElementById("value");
 
@@ -9,11 +10,9 @@ function getFiboServer() {
   let params = inputNum.value;
 
   if (params > 50) {
-    // do error
-    toggleStyle("invalid-input-display", "block", "show")
-
+    toggleStyle("invalid-input-display", "block", "show");
   } else {
-    toggleStyle("invalid-input-display", "show", "block")
+    toggleStyle("invalid-input-display", "show", "block");
     toggleSpinner("calculated-result");
 
     fetch(`${url}${params}`).then(function(response) {
@@ -34,12 +33,6 @@ function getFiboServer() {
       }
     });
   }
-}
-
-function toggleVisibilityByElementId(id) {
-  let element = document.getElementById(id);
-  if (element.style.display == "block") element.style.display = "none";
-  else element.style.display = "block";
 }
 
 function toggleSpinner(id) {
