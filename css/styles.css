@@ -14,13 +14,11 @@ body {
 
 .font-cust1 {
   font-size: 24px;
-  line-height: 24px;
   color: #373a3c;
 }
 
 .font-cust2 {
   font-size: 24px;
-  line-height: 24px;
   color: #d9534f;
   border: 1px solid #d9534f;
 }
@@ -28,20 +26,14 @@ body {
 .my-font-result {
   text-decoration-line: underline;
   color: #373a3c;
-  font-family: Open Sans;
-  font-style: normal;
   font-weight: bold;
   font-size: 24px;
-  line-height: 24px;
 }
 
 .result-42 {
   text-decoration-line: none;
-  font-family: Open Sans;
-  font-style: normal;
   font-weight: normal;
   font-size: 16px;
-  line-height: 24px;
   color: #d9534f;
 }
 
@@ -55,6 +47,25 @@ body {
   border: 1px solid #ebcccc;
   border-radius: 4px;
   color: #a94442;
+}
+
+.my-title {
+  width: 182px;
+  height: 72px;
+  margin-top: 87px;
+  font-size: 54px;
+  line-height: 72px;
+  vertical-align: center;
+  color: #373a3c;
+}
+
+.this-col {
+  margin-top: 87px;
+}
+
+#loading {
+  margin-left: 5px;
+    margin-bottom: 4px;
 }
 
 .show {
