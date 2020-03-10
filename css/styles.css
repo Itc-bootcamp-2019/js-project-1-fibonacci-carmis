@@ -18,6 +18,13 @@ body {
   color: #373a3c;
 }
 
+.font-cust2 {
+  font-size: 24px;
+  line-height: 24px;
+  color: #d9534f;
+  border: 1px solid #d9534f;
+}
+
 .my-font-result {
   text-decoration-line: underline;
   color: #373a3c;
