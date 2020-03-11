@@ -1,8 +1,8 @@
+window.addEventListener("DOMContentLoaded", getPreviousCalculations);
 document
   .getElementById("start-calculator")
   .addEventListener("click", getFiboServer);
 document.getElementById("input-number").addEventListener("input", clearResults);
-window.addEventListener("DOMContentLoaded", getPreviousCalculations);
 
 function getFiboServer() {
   let inputNum = document.getElementById("input-number");
@@ -25,6 +25,7 @@ function getFiboServer() {
       } else {
         response.json().then(function(data) {
           resultValue.innerText = data.result;
+          getPreviousCalculations();
           return;
         });
       }
@@ -50,18 +51,24 @@ function clearResults() {
 }
 
 function getPreviousCalculations() {
+  let listNode = document.getElementById("result-list");
+  while (listNode.lastElementChild) {
+    listNode.removeChild(listNode.lastElementChild);
+  }
   toggleSpinner("loading");
   let url = "http://localhost:5050/getFibonacciResults";
   fetch(url).then(response => {
     response.json().then(data => {
       let results = data.results;
-      let sortedResults = results.sort((a, b) => b.createdDate - a.createdDate)
-      for (let currentResult of sortedResults) {
-        document.getElementById("loading").innerHTML += `<li>The Fibonnaci Of ${
-          currentResult.number
-        } is ${currentResult.result}. Calculated at: ${new Date(
-          currentResult.createdDate
-        )}</li>`;
+      let sortedResultsArray = results.sort(
+        (a, b) => b.createdDate - a.createdDate
+      );
+      for (let currentObject of sortedResultsArray) {
+        document.getElementById(
+          "result-list"
+        ).innerHTML += `<li>The Fibonnaci Of ${currentObject.number} is ${
+          currentObject.result
+        }. Calculated at: ${new Date(currentObject.createdDate)}</li>`;
       }
       toggleSpinner("loading");
       console.log("Checkout this JSON! ", data);
