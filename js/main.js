@@ -51,12 +51,20 @@ function clearResults() {
 
 function getPreviousCalculations() {
   toggleSpinner("loading");
-  fetch("http://localhost:5050/getFibonacciResults").then(response => {
+  let url = "http://localhost:5050/getFibonacciResults";
+  fetch(url).then(response => {
     response.json().then(data => {
-      document.getElementById(
-        "result-list"
-      ).innerHTML = JSON.stringify(data, null, 4);
+      let results = data.results;
+      let sortedResults = results.sort((a, b) => b.createdDate - a.createdDate)
+      for (let currentResult of sortedResults) {
+        document.getElementById("loading").innerHTML += `<li>The Fibonnaci Of ${
+          currentResult.number
+        } is ${currentResult.result}. Calculated at: ${new Date(
+          currentResult.createdDate
+        )}</li>`;
+      }
       toggleSpinner("loading");
+      console.log("Checkout this JSON! ", data);
     });
   });
 }

@@ -16,7 +16,7 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body id="loadme">
+  <body>
     <div class="container">
       <div class="row">
         <h1 class="pl-3 h1-cust">Fibonacci Calculator</h1>
@@ -57,13 +57,15 @@
       </div>
       <div id="previous-calculations" class="row">
         <div class="col this-col">
-          <span class="text-area">
+          <div class="text-area">
             <span class="my-title">Results</span>
             <span id="loading"></span>
-          </span>
+          </div>
         </div>
-        <div class="row">
-          <div class="col">
+      </div>
+      <div class="row list-row">
+        <div class="col">
+          <div class="list-wrapper">
             <ul id="result-list"></ul>
           </div>
         </div>
