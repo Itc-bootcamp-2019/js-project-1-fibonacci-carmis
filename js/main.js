@@ -9,15 +9,13 @@ function switchCalculator() {
   if (!checkBox.checked) {
     calculateLocally();
   } else {
-    getFiboServer();
+    calculateFromServer();
   }
 }
 
 function calculateLocally() {
   let num = document.getElementById("input-number").value;
-  if (num < 0 || num > 50) {
-    toggleStyle("invalid-input-display", "block", "show");
-    toggleStyle("input-number", "font-cust1", "font-cust2");
+  if (!isValid(num)) {
   } else {
     document.getElementById("value").innerText = calculateFibonacci(num);
   }
@@ -31,14 +29,12 @@ function calculateFibonacci(num) {
   }
 }
 
-function getFiboServer() {
+function calculateFromServer() {
   let inputNum = document.getElementById("input-number");
   let resultValue = document.getElementById("value");
   let url = "http://localhost:5050/fibonacci/";
   let params = inputNum.value;
-  if (params > 50) {
-    toggleStyle("invalid-input-display", "block", "show");
-    toggleStyle("input-number", "font-cust1", "font-cust2");
+  if (!isValid(params)) {
   } else {
     toggleSpinner("calculated-result");
     fetch(`${url}${params}`).then(function(response) {
@@ -58,11 +54,6 @@ function getFiboServer() {
       }
     });
   }
-}
-
-function toggleSpinner(id) {
-  let element = document.getElementById(id);
-  element.classList.toggle("spinner-border");
 }
 
 function toggleStyle(id, classId1, classId2) {
@@ -100,4 +91,18 @@ function getPreviousCalculations() {
       toggleSpinner("loading");
     });
   });
+}
+
+function toggleSpinner(id) {
+  let element = document.getElementById(id);
+  element.classList.toggle("spinner-border");
+}
+
+function isValid(input) {
+  if (input < 0 || input > 50) {
+    toggleStyle("invalid-input-display", "block", "show");
+    toggleStyle("input-number", "font-cust1", "font-cust2");
+  } else {
+    return true;
+  }
 }
