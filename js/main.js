@@ -71,7 +71,6 @@ function getPreviousCalculations() {
         }. Calculated at: ${new Date(currentObject.createdDate)}</li>`;
       }
       toggleSpinner("loading");
-      console.log("Checkout this JSON! ", data);
     });
   });
 }
