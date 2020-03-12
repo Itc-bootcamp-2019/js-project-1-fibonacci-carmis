@@ -1,8 +1,35 @@
 window.addEventListener("DOMContentLoaded", getPreviousCalculations);
+document.getElementById("input-number").addEventListener("input", clearResults);
 document
   .getElementById("start-calculator")
-  .addEventListener("click", getFiboServer);
-document.getElementById("input-number").addEventListener("input", clearResults);
+  .addEventListener("click", switchCalculator);
+
+function switchCalculator() {
+  let checkBox = document.getElementById("BoxCheck");
+  if (!checkBox.checked) {
+    calculateLocally();
+  } else {
+    getFiboServer();
+  }
+}
+
+function calculateLocally() {
+  let num = document.getElementById("input-number").value;
+  if (num < 0 || num > 50) {
+    toggleStyle("invalid-input-display", "block", "show");
+    toggleStyle("input-number", "font-cust1", "font-cust2");
+  } else {
+    document.getElementById("value").innerText = calculateFibonacci(num);
+  }
+}
+
+function calculateFibonacci(num) {
+  if (num < 2) {
+    return num;
+  } else {
+    return calculateFibonacci(num - 1) + calculateFibonacci(num - 2);
+  }
+}
 
 function getFiboServer() {
   let inputNum = document.getElementById("input-number");
