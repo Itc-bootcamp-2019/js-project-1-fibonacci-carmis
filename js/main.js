@@ -1,31 +1,22 @@
 window.addEventListener("DOMContentLoaded", getPreviousCalculations);
 document.getElementById("input-number").addEventListener("input", clearResults);
-document
-  .getElementById("start-calculator")
-  .addEventListener("click", switchCalculator);
+document.getElementById("start-calculator").addEventListener("click", callCalculator);
 
-function switchCalculator() {
-  let checkBox = document.getElementById("BoxCheck");
-  if (!checkBox.checked) {
-    calculateLocally();
-  } else {
+function callCalculator() {
+  let checkBox = document.getElementById("boxCheck");
+  if (checkBox.checked) {
     calculateFromServer();
+  } else {
+    calculateFromLocal();
   }
 }
 
-function calculateLocally() {
+function calculateFromLocal() {
   let num = document.getElementById("input-number").value;
-  if (!isValid(num)) {
+  if (isNotValid(num)) {
+    displayErrorMessage()
   } else {
     document.getElementById("value").innerText = calculateFibonacci(num);
-  }
-}
-
-function calculateFibonacci(num) {
-  if (num < 2) {
-    return num;
-  } else {
-    return calculateFibonacci(num - 1) + calculateFibonacci(num - 2);
   }
 }
 
@@ -34,14 +25,15 @@ function calculateFromServer() {
   let resultValue = document.getElementById("value");
   let url = "http://localhost:5050/fibonacci/";
   let params = inputNum.value;
-  if (!isValid(params)) {
+  if (isNotValid(params)) {
+    displayErrorMessage();
   } else {
     toggleSpinner("calculated-result");
     fetch(`${url}${params}`).then(function(response) {
       toggleSpinner("calculated-result");
       if (!response.ok) {
         response.text().then(function(text) {
-          toggleStyle("value", "my-font-result", "result-42");
+          alterStyle("value", "my-font-result", "result-42");
           resultValue.innerText = `Server Error: ${text}`;
           return;
         });
@@ -56,16 +48,12 @@ function calculateFromServer() {
   }
 }
 
-function toggleStyle(id, classId1, classId2) {
-  let element = document.getElementById(id);
-  element.classList.replace(classId1, classId2);
-}
-
-function clearResults() {
-  document.getElementById("value").innerText = "";
-  toggleStyle("invalid-input-display", "show", "block");
-  toggleStyle("value", "result-42", "my-font-result");
-  toggleStyle("input-number", "font-cust2", "font-cust1");
+function calculateFibonacci(num) {
+  if (num < 2) {
+    return num;
+  } else {
+    return calculateFibonacci(num - 1) + calculateFibonacci(num - 2);
+  }
 }
 
 function getPreviousCalculations() {
@@ -93,16 +81,32 @@ function getPreviousCalculations() {
   });
 }
 
+function alterStyle(id, classId1, classId2) {
+  let element = document.getElementById(id);
+  element.classList.replace(classId1, classId2);
+}
+
+function clearResults() {
+  document.getElementById("value").innerText = "";
+  alterStyle("invalid-input-display", "show", "block");
+  alterStyle("value", "result-42", "my-font-result");
+  alterStyle("input-number", "font-cust2", "font-cust1");
+}
+
 function toggleSpinner(id) {
   let element = document.getElementById(id);
   element.classList.toggle("spinner-border");
 }
 
-function isValid(input) {
+function isNotValid(input) {
   if (input < 0 || input > 50) {
-    toggleStyle("invalid-input-display", "block", "show");
-    toggleStyle("input-number", "font-cust1", "font-cust2");
+    return true
   } else {
-    return true;
+    return false;
   }
+}
+
+function displayErrorMessage () {
+  alterStyle("invalid-input-display", "block", "show");
+  alterStyle("input-number", "font-cust1", "font-cust2");
 }
