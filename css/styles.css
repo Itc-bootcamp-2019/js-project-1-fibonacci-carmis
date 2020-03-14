@@ -75,6 +75,17 @@ li {
     margin-bottom: 4px;
 }
 
+.my-sort-button {
+  background-color: #E6E6E6;
+  color: #373A3C;
+  border: #CCCCCC;
+}
+
+li a:hover {
+      background-color: initial;
+}
+
+
 .list-wrapper {
   margin-top: 60px;
 }

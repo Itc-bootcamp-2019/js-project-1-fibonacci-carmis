@@ -1,6 +1,20 @@
-window.addEventListener("DOMContentLoaded", getPreviousCalculations);
+window.addEventListener("DOMContentLoaded", sortResultsbyDateDesc);
 document.getElementById("input-number").addEventListener("input", clearResults);
-document.getElementById("start-calculator").addEventListener("click", callCalculator);
+document
+  .getElementById("start-calculator")
+  .addEventListener("click", callCalculator);
+document
+  .getElementById("number-asc")
+  .addEventListener("click", sortResultsbyNumberAsc);
+document
+  .getElementById("number-dsc")
+  .addEventListener("click", sortResultsbyNumberDsc);
+document
+  .getElementById("date-asc")
+  .addEventListener("click", sortResultsbyDateAsc);
+document
+  .getElementById("date-dsc")
+  .addEventListener("click", sortResultsbyDateDesc);
 
 function callCalculator() {
   let checkBox = document.getElementById("boxCheck");
@@ -14,7 +28,7 @@ function callCalculator() {
 function calculateFromLocal() {
   let num = document.getElementById("input-number").value;
   if (isNotValid(num)) {
-    displayErrorMessage()
+    displayErrorMessage();
   } else {
     document.getElementById("value").innerText = calculateFibonacci(num);
   }
@@ -40,7 +54,7 @@ function calculateFromServer() {
       } else {
         response.json().then(function(data) {
           resultValue.innerText = data.result;
-          getPreviousCalculations();
+          sortResultsbyDateDesc();
           return;
         });
       }
@@ -56,11 +70,70 @@ function calculateFibonacci(num) {
   }
 }
 
-function getPreviousCalculations() {
-  let listNode = document.getElementById("result-list");
-  while (listNode.lastElementChild) {
-    listNode.removeChild(listNode.lastElementChild);
-  }
+function sortResultsbyNumberAsc() {
+  clearResultList();
+  toggleSpinner("loading");
+  let url = "http://localhost:5050/getFibonacciResults";
+  fetch(url).then(response => {
+    response.json().then(data => {
+      let results = data.results;
+      let sortedResultsArray = results.sort((a, b) => a.number - b.number);
+      for (let currentObject of sortedResultsArray) {
+        document.getElementById(
+          "result-list"
+        ).innerHTML += `<li>The Fibonnaci Of ${currentObject.number} is ${
+          currentObject.result
+        }. Calculated at: ${new Date(currentObject.createdDate)}</li>`;
+      }
+      toggleSpinner("loading");
+    });
+  });
+}
+
+function sortResultsbyNumberDsc() {
+  clearResultList();
+  toggleSpinner("loading");
+  let url = "http://localhost:5050/getFibonacciResults";
+  fetch(url).then(response => {
+    response.json().then(data => {
+      let results = data.results;
+      let sortedResultsArray = results.sort((a, b) => b.number - a.number);
+      for (let currentObject of sortedResultsArray) {
+        document.getElementById(
+          "result-list"
+        ).innerHTML += `<li>The Fibonnaci Of ${currentObject.number} is ${
+          currentObject.result
+        }. Calculated at: ${new Date(currentObject.createdDate)}</li>`;
+      }
+      toggleSpinner("loading");
+    });
+  });
+}
+
+function sortResultsbyDateAsc() {
+  clearResultList();
+  toggleSpinner("loading");
+  let url = "http://localhost:5050/getFibonacciResults";
+  fetch(url).then(response => {
+    response.json().then(data => {
+      let results = data.results;
+      let sortedResultsArray = results.sort(
+        (a, b) => a.createdDate - b.createdDate
+      );
+      for (let currentObject of sortedResultsArray) {
+        document.getElementById(
+          "result-list"
+        ).innerHTML += `<li>The Fibonnaci Of ${currentObject.number} is ${
+          currentObject.result
+        }. Calculated at: ${new Date(currentObject.createdDate)}</li>`;
+      }
+      toggleSpinner("loading");
+    });
+  });
+}
+
+function sortResultsbyDateDesc() {
+  clearResultList();
   toggleSpinner("loading");
   let url = "http://localhost:5050/getFibonacciResults";
   fetch(url).then(response => {
@@ -79,6 +152,13 @@ function getPreviousCalculations() {
       toggleSpinner("loading");
     });
   });
+}
+
+function clearResultList() {
+  let listNode = document.getElementById("result-list");
+  while (listNode.lastElementChild) {
+    listNode.removeChild(listNode.lastElementChild);
+  }
 }
 
 function alterStyle(id, classId1, classId2) {
@@ -100,13 +180,13 @@ function toggleSpinner(id) {
 
 function isNotValid(input) {
   if (input < 0 || input > 50) {
-    return true
+    return true;
   } else {
     return false;
   }
 }
 
-function displayErrorMessage () {
+function displayErrorMessage() {
   alterStyle("invalid-input-display", "block", "show");
   alterStyle("input-number", "font-cust1", "font-cust2");
 }
